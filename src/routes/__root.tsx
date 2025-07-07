@@ -66,7 +66,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <body>
         <SidebarProvider>
           <AppSidebar />
-          <main>
+          <main className="w-full p-4">
             <SidebarTrigger />
             {children}
           </main>
