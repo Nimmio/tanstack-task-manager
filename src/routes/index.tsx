@@ -1,20 +1,37 @@
 // src/routes/index.tsx
 import DashboardStats from "@/components/dashboard-stats";
+import GroupsOverview from "@/components/groups-overview";
 import PageWrap from "@/components/page-wrap";
-import { Button } from "@/components/ui/button";
 import { m } from "@/paraglide/messages";
-import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
+import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Home,
 });
 
-function Home() {
-  const router = useRouter();
-  const state = Route.useLoaderData();
+const groups = [
+  {
+    name: "Frontend Development",
+    description: "UI/UX related tasks",
+    count: 10,
+    percent: 25,
+  },
+  {
+    name: "Backend Development",
+    description: "Server-side development",
+    count: 10,
+    percent: 25,
+  },
+  {
+    name: "DevOps",
+    description: "Infrastructure and deployment",
+    count: 10,
+    percent: 25,
+  },
+];
 
+function Home() {
   return (
     <PageWrap
       title={m.aware_gray_puffin_pout()}
@@ -36,6 +53,7 @@ function Home() {
       ]}
     >
       <DashboardStats />
+      <GroupsOverview groups={groups} />
     </PageWrap>
   );
 }
