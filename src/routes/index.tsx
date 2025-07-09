@@ -2,6 +2,8 @@
 import DashboardStats from "@/components/dashboard-stats";
 import GroupsOverview from "@/components/groups-overview";
 import PageWrap from "@/components/page-wrap";
+import RecentTasks from "@/components/recent-task";
+import { Button } from "@/components/ui/button";
 import { m } from "@/paraglide/messages";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
@@ -53,7 +55,7 @@ function Home() {
       ]}
     >
       <DashboardStats />
-      <GroupsOverview groups={groups} />
+      <RecentTasks />
     </PageWrap>
   );
 }
