@@ -1,6 +1,7 @@
 // src/routes/index.tsx
 import DashboardStats from "@/components/dashboard-stats";
 import PageWrap from "@/components/page-wrap";
+import RecentTasks from "@/components/recent-task";
 import { Button } from "@/components/ui/button";
 import { m } from "@/paraglide/messages";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
@@ -36,6 +37,7 @@ function Home() {
       ]}
     >
       <DashboardStats />
+      <RecentTasks />
     </PageWrap>
   );
 }
