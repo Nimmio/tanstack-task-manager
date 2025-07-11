@@ -37,6 +37,7 @@ const PageWrap = ({
           <div className="flex gap-2">
             {buttons.map((buttonElement) => (
               <Button
+                key={buttonElement.text}
                 variant={buttonElement.variant || "default"}
                 onClick={buttonElement.onClick}
               >

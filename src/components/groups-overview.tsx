@@ -31,6 +31,7 @@ const GroupsOverview = ({ groups }: GroupsOverviewProps) => {
         <div className="grid grid-cols-3 gap-4">
           {groups.map((group) => (
             <GroupOverviewGroupCard
+              key={group.name}
               name={group.name}
               description={group.description}
               count={group.count}

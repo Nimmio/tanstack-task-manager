@@ -24,7 +24,7 @@ const DashboardStatsCard = ({
       </CardHeader>
       <CardContent className="h-full">
         <div className="text-2xl font-bold">{main}</div>
-        <p className="text-xs text-muted-foreground">{sub}</p>
+        <span className="text-xs text-muted-foreground">{sub}</span>
       </CardContent>
     </Card>
   );
