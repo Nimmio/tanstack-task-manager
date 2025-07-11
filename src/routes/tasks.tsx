@@ -1,8 +1,8 @@
 import PageWrap from "@/components/page-wrap";
 import TaskFilter from "@/components/tasks-filter";
 import TaskTable from "@/components/tasks-table";
-import { getGroups } from "@/lib/groups";
 import { getAllPriorities } from "@/lib/priorities";
+import { getGroups } from "@/lib/server/groups";
 import { getAllStatus } from "@/lib/status";
 import { m } from "@/paraglide/messages";
 import { createFileRoute } from "@tanstack/react-router";
@@ -24,6 +24,16 @@ export const Route = createFileRoute("/tasks")({
     };
   },
 });
+
+const Tasks = [
+  {
+    id: 1,
+    title: "test",
+    description: "lorem",
+    status: "To Do",
+    priority: "High",
+  },
+];
 
 function RouteComponent() {
   const state = Route.useLoaderData();
@@ -57,7 +67,7 @@ function RouteComponent() {
         groupFilter={groupFilter}
         onChangeGroupFilter={(newGroupFilter) => setGroupFilter(newGroupFilter)}
       />
-      <TaskTable />
+      <TaskTable tasks={Tasks} />
     </PageWrap>
   );
 }

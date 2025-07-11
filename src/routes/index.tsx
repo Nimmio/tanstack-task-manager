@@ -4,7 +4,7 @@ import GroupsOverview from "@/components/groups-overview";
 import PageWrap from "@/components/page-wrap";
 import RecentTasks from "@/components/recent-task";
 import { Button } from "@/components/ui/button";
-import { getGroups } from "@/lib/groups";
+import { getGroups } from "@/lib/server/groups";
 import { m } from "@/paraglide/messages";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
