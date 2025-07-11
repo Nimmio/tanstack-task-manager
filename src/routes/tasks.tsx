@@ -2,6 +2,7 @@ import PageWrap from "@/components/page-wrap";
 import TaskFilter from "@/components/tasks-filter";
 import TaskTable from "@/components/tasks-table";
 import { getGroups } from "@/lib/groups";
+import { getAllPriorities } from "@/lib/priorities";
 import { getAllStatus } from "@/lib/status";
 import { m } from "@/paraglide/messages";
 import { createFileRoute } from "@tanstack/react-router";
@@ -11,20 +12,26 @@ import { useState } from "react";
 export const Route = createFileRoute("/tasks")({
   component: RouteComponent,
   loader: async () => {
-    const groups = await getGroups();
-    const allStatus = await getAllStatus();
+    const [groups, allStatus, allPriorities] = await Promise.all([
+      getGroups(),
+      getAllStatus(),
+      getAllPriorities(),
+    ]);
     return {
       groups,
       allStatus,
+      allPriorities,
     };
   },
 });
 
 function RouteComponent() {
   const state = Route.useLoaderData();
-  const { groups, allStatus } = state;
+  const { groups, allStatus, allPriorities } = state;
   const [searchValue, setSearchValue] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [priorityFilter, setPriorityFilter] = useState<string>("all");
+  const [groupFilter, setGroupFilter] = useState<string>("all");
   return (
     <PageWrap
       title={m.aqua_civil_salmon_sing()}
@@ -41,6 +48,14 @@ function RouteComponent() {
         onChangeStatusFilter={(newStatusFilter) =>
           setStatusFilter(newStatusFilter)
         }
+        allPriorities={allPriorities}
+        priorityFilter={priorityFilter}
+        onChangePriorityFilter={(newPriorityFilter) =>
+          setPriorityFilter(newPriorityFilter)
+        }
+        groups={groups}
+        groupFilter={groupFilter}
+        onChangeGroupFilter={(newGroupFilter) => setGroupFilter(newGroupFilter)}
       />
       <TaskTable />
     </PageWrap>

@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { group } from "@/lib/groups";
 
 interface TaskFilterProps {
   searchValue: string;
@@ -17,6 +18,12 @@ interface TaskFilterProps {
   statusFilter: string;
   onChangeStatusFilter: (newStatusFilter: string) => void;
   allStatus: Array<{ value: string; label: string }>;
+  allPriorities: Array<{ value: string; label: string }>;
+  priorityFilter: string;
+  onChangePriorityFilter: (newPriorityFilter: string) => void;
+  groups: group[];
+  groupFilter: string;
+  onChangeGroupFilter: (newGroupFilter: string) => void;
 }
 
 const TaskFilter = ({
@@ -25,6 +32,12 @@ const TaskFilter = ({
   statusFilter,
   onChangeStatusFilter,
   allStatus,
+  allPriorities,
+  priorityFilter,
+  onChangePriorityFilter,
+  groups,
+  groupFilter,
+  onChangeGroupFilter,
 }: TaskFilterProps) => {
   return (
     <Card>
@@ -56,7 +69,7 @@ const TaskFilter = ({
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="all">All Statuses</SelectItem>
                   {allStatus.map((status) => (
                     <SelectItem value={status.value} key={status.value}>
                       {status.label}
@@ -66,26 +79,38 @@ const TaskFilter = ({
               </Select>
             </span>
             <span>
-              <Select>
+              <Select
+                value={priorityFilter}
+                onValueChange={(newValue) => onChangePriorityFilter(newValue)}
+              >
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Status" />
+                  <SelectValue placeholder="Priority" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
+                  <SelectItem value="all">All Priorities</SelectItem>
+                  {allPriorities.map((priority) => (
+                    <SelectItem value={priority.value} key={priority.value}>
+                      {priority.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </span>
             <span>
-              <Select>
+              <Select
+                value={groupFilter}
+                onValueChange={(newValue) => onChangeGroupFilter(newValue)}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
+                  <SelectItem value="all">All Groups</SelectItem>
+                  {groups.map((group) => (
+                    <SelectItem value={group.id.toString()} key={group.id}>
+                      {group.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </span>
