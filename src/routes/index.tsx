@@ -56,7 +56,7 @@ function Home() {
         groupsCount={groups.length}
         usersCount={dashboardData.usersCount}
       />
-      <RecentTasks />
+      <RecentTasks tasks={dashboardData.lastFiveTasks} />
       <GroupsOverview groups={groups} />
     </PageWrap>
   );

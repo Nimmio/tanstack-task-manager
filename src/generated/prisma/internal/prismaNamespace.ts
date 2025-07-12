@@ -905,6 +905,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   status: 'status',

@@ -8,21 +8,15 @@ import {
 } from "./ui/card";
 import GroupOverviewGroupCard from "./group-overview-group-card";
 import { m } from "@/paraglide/messages";
-
-export type group = {
-  name: string;
-  description: string;
-  count: number;
-  percent: number;
-};
+import { Group } from "@/generated/prisma/client";
 
 interface GroupsOverviewProps {
-  groups: Array<group>;
+  groups: Array<Group>;
 }
 
 const GroupsOverview = ({ groups }: GroupsOverviewProps) => {
   return (
-    <Card className="mt-4">
+    <Card className="mt-8">
       <CardHeader>
         <CardTitle>{m.ago_antsy_dingo_sing()}</CardTitle>
         <CardDescription>{m.acidic_petty_snail_grow()}</CardDescription>
@@ -31,11 +25,11 @@ const GroupsOverview = ({ groups }: GroupsOverviewProps) => {
         <div className="grid grid-cols-3 gap-4">
           {groups.map((group) => (
             <GroupOverviewGroupCard
-              key={group.name}
-              name={group.name}
+              key={group.id}
+              name={group.title}
               description={group.description}
-              count={group.count}
-              percent={group.percent}
+              count={5}
+              percent={5}
             />
           ))}
         </div>

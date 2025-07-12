@@ -7,22 +7,24 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { Priority } from "@/generated/prisma/client";
+import { Status } from "@/generated/prisma/enums";
 
 interface TaskCardProps {
   title: string;
   description?: string;
   group?: string;
   assignedTo?: string;
-  priority?: "low" | "medium" | "high";
-  status?: "To Do" | "In Progress" | "Completed";
+  priority?: Priority;
+  status?: Status;
   dueDate?: Date;
 }
 
 const getPriorityBadgeVariant = (
   priority: TaskCardProps["priority"]
 ): "default" | "destructive" | "secondary" => {
-  if (priority === "high") return "destructive";
-  else if (priority === "medium") return "default";
+  if (priority === "HIGH") return "destructive";
+  else if (priority === "MEDIUM") return "default";
   else return "secondary";
 };
 
