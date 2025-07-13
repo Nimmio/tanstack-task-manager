@@ -3,33 +3,43 @@ import DashboardStats from "@/components/dashboard-stats";
 import GroupsOverview from "@/components/groups-overview";
 import PageWrap from "@/components/page-wrap";
 import RecentTasks from "@/components/recent-task";
-import { Button } from "@/components/ui/button";
 import { getDashboardData } from "@/lib/server/dashboard";
-import { getGroups } from "@/lib/server/groups";
+import { getGroups, groupsQueryOptions } from "@/lib/server/groups";
+import {
+  taskCountCompletedQueryOptions,
+  tasksCountQueryOptions,
+  tasksLastQueryOptions,
+} from "@/lib/server/tasks";
+import { userCountQueryOptions } from "@/lib/server/users";
 import { m } from "@/paraglide/messages";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 
 export const Route = createFileRoute("/")({
-  loader: async () => {
-    const [dashboardData, groups] = await Promise.all([
-      getDashboardData(),
-      getGroups(),
+  loader: async ({ context }) => {
+    const { queryClient } = context;
+    await Promise.all([
+      queryClient.ensureQueryData(tasksCountQueryOptions()),
+      queryClient.ensureQueryData(taskCountCompletedQueryOptions()),
+      queryClient.ensureQueryData(tasksLastQueryOptions(5)),
+      queryClient.ensureQueryData(groupsQueryOptions()),
+      queryClient.ensureQueryData(userCountQueryOptions()),
     ]);
-
-    return {
-      dashboardData,
-      groups,
-    };
   },
 
   component: Home,
 });
 
 function Home() {
-  const state = Route.useLoaderData();
-  const { dashboardData, groups } = state;
-  console.log(dashboardData);
+  const taskCountQuery = useSuspenseQuery(tasksCountQueryOptions());
+  const taskCompletedCountQuery = useSuspenseQuery(
+    taskCountCompletedQueryOptions()
+  );
+  const taskLastQuery = useSuspenseQuery(tasksLastQueryOptions(5));
+  const groupQuery = useSuspenseQuery(groupsQueryOptions());
+  const userCountQuery = useSuspenseQuery(userCountQueryOptions());
+
   return (
     <PageWrap
       title={m.aware_gray_puffin_pout()}
@@ -51,13 +61,13 @@ function Home() {
       ]}
     >
       <DashboardStats
-        totalTasksCount={dashboardData.taskCount}
-        completedtasksCount={dashboardData.completedtaskCount}
-        groupsCount={groups.length}
-        usersCount={dashboardData.usersCount}
+        totalTasksCount={taskCountQuery.data}
+        completedtasksCount={taskCompletedCountQuery.data}
+        groupsCount={groupQuery.data.length}
+        usersCount={userCountQuery.data}
       />
-      <RecentTasks tasks={dashboardData.lastFiveTasks} />
-      <GroupsOverview groups={groups} />
+      <RecentTasks tasks={taskLastQuery.data} />
+      <GroupsOverview groups={groupQuery.data} />
     </PageWrap>
   );
 }

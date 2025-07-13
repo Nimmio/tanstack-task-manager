@@ -54,10 +54,10 @@ const TaskCard = ({
             )}
           </div>
           <div className="flex gap-4">
+            {dueDate && <>{dueDate.toDateString()}</>}
             <Badge variant={getPriorityBadgeVariant(priority)}>
               {priority}
             </Badge>
-            {dueDate && <>{dueDate.toDateString()}</>}
           </div>
         </div>
       </CardContent>

@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { group } from "@/lib/groups";
+import { GroupWithUsesAndTasks } from "@/types/groups";
 
 interface TaskFilterProps {
   searchValue: string;
@@ -21,7 +21,7 @@ interface TaskFilterProps {
   allPriorities: Array<{ value: string; label: string }>;
   priorityFilter: string;
   onChangePriorityFilter: (newPriorityFilter: string) => void;
-  groups: group[];
+  groups: GroupWithUsesAndTasks[];
   groupFilter: string;
   onChangeGroupFilter: (newGroupFilter: string) => void;
 }
@@ -108,7 +108,7 @@ const TaskFilter = ({
                   <SelectItem value="all">All Groups</SelectItem>
                   {groups.map((group) => (
                     <SelectItem value={group.id.toString()} key={group.id}>
-                      {group.name}
+                      {group.title}
                     </SelectItem>
                   ))}
                 </SelectContent>

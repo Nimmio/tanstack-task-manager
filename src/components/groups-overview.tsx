@@ -8,10 +8,11 @@ import {
 } from "./ui/card";
 import GroupOverviewGroupCard from "./group-overview-group-card";
 import { m } from "@/paraglide/messages";
-import { Group } from "@/generated/prisma/client";
+import { GroupWithUsesAndTasks } from "@/types/groups";
+import { getCompletionRate } from "@/lib/tasks";
 
 interface GroupsOverviewProps {
-  groups: Array<Group>;
+  groups: GroupWithUsesAndTasks[];
 }
 
 const GroupsOverview = ({ groups }: GroupsOverviewProps) => {
@@ -23,15 +24,24 @@ const GroupsOverview = ({ groups }: GroupsOverviewProps) => {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-3 gap-4">
-          {groups.map((group) => (
-            <GroupOverviewGroupCard
-              key={group.id}
-              name={group.title}
-              description={group.description}
-              count={5}
-              percent={5}
-            />
-          ))}
+          {groups.map((group) => {
+            const completionRate = getCompletionRate({
+              allTasksCount: group.tasks.length,
+              completedTasksCount: group.tasks.filter(
+                (task) => task.status === "COMPLETED"
+              ).length,
+            });
+
+            return (
+              <GroupOverviewGroupCard
+                key={group.id}
+                name={group.title}
+                description={group.description}
+                count={group.tasks.length}
+                percent={completionRate.toFixed()}
+              />
+            );
+          })}
         </div>
       </CardContent>
     </Card>

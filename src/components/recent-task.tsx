@@ -2,9 +2,10 @@ import React from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import TaskCard from "./task-card";
 import { Task } from "@/generated/prisma/client";
+import { TaskWithAssigneeAndGroup } from "@/types/task";
 
 interface RecentTasksProps {
-  tasks: Task[];
+  tasks: TaskWithAssigneeAndGroup[];
 }
 
 const RecentTasks = ({ tasks }: RecentTasksProps) => {
@@ -18,8 +19,8 @@ const RecentTasks = ({ tasks }: RecentTasksProps) => {
             key={task.id}
             title={task.title}
             description={task.description}
-            group="group"
-            assignedTo="assigne"
+            group={task.group?.title}
+            assignedTo={task.assigne?.name}
             priority={task.priority}
             status={task.status}
             dueDate={task.dueDate || undefined}

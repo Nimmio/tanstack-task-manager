@@ -17,16 +17,10 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Edit, Trash2 } from "lucide-react";
+import { TaskWithAssigneeAndGroup } from "@/types/task";
 
 interface TaskTableProps {
-  tasks: Array<{
-    id: number;
-    title: string;
-    description: string;
-    status: string;
-    priority: string;
-    group: string;
-  }>;
+  tasks?: TaskWithAssigneeAndGroup[];
 }
 
 const TaskTable = ({ tasks }: TaskTableProps) => {
@@ -50,32 +44,41 @@ const TaskTable = ({ tasks }: TaskTableProps) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tasks.map((task) => {
-              const { id, title, description, status, priority } = task;
-              return (
-                <TableRow key={id}>
-                  <TableCell>
-                    <div className="font-medium">{title}</div>
-                    <div className="text-sm text-gray-500">{description}</div>
-                  </TableCell>
-                  <TableCell>{status}</TableCell>
-                  <TableCell>{priority}</TableCell>
-                  <TableCell>
-                    <Badge variant={"outline"}>{priority}</Badge>
-                  </TableCell>
-                  <TableCell>Bob</TableCell>
-                  <TableCell>Tomorrow</TableCell>
-                  <TableCell>
-                    <Button variant={"ghost"}>
-                      <Edit />
-                    </Button>
-                    <Button variant={"ghost"}>
-                      <Trash2 />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {tasks &&
+              tasks.map((task) => {
+                const {
+                  id,
+                  title,
+                  description,
+                  status,
+                  priority,
+                  assigne,
+                  dueDate,
+                } = task;
+                return (
+                  <TableRow key={id}>
+                    <TableCell>
+                      <div className="font-medium">{title}</div>
+                      <div className="text-sm text-gray-500">{description}</div>
+                    </TableCell>
+                    <TableCell>{status}</TableCell>
+                    <TableCell>{priority}</TableCell>
+                    <TableCell>
+                      <Badge variant={"outline"}>{priority}</Badge>
+                    </TableCell>
+                    <TableCell>{assigne?.name}</TableCell>
+                    <TableCell>{dueDate?.toDateString()}</TableCell>
+                    <TableCell>
+                      <Button variant={"ghost"}>
+                        <Edit />
+                      </Button>
+                      <Button variant={"ghost"}>
+                        <Trash2 />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </CardContent>
