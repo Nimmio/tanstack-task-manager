@@ -18,6 +18,8 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Edit, Trash2 } from "lucide-react";
 import { TaskWithAssigneeAndGroup } from "@/types/task";
+import { getStatusLabel } from "@/lib/status";
+import { getPriorityLabel } from "@/lib/priorities";
 
 interface TaskTableProps {
   tasks?: TaskWithAssigneeAndGroup[];
@@ -54,6 +56,7 @@ const TaskTable = ({ tasks }: TaskTableProps) => {
                   priority,
                   assigne,
                   dueDate,
+                  group,
                 } = task;
                 return (
                   <TableRow key={id}>
@@ -61,10 +64,10 @@ const TaskTable = ({ tasks }: TaskTableProps) => {
                       <div className="font-medium">{title}</div>
                       <div className="text-sm text-gray-500">{description}</div>
                     </TableCell>
-                    <TableCell>{status}</TableCell>
-                    <TableCell>{priority}</TableCell>
+                    <TableCell>{getStatusLabel(status)}</TableCell>
+                    <TableCell>{getPriorityLabel(priority)}</TableCell>
                     <TableCell>
-                      <Badge variant={"outline"}>{priority}</Badge>
+                      <Badge variant={"outline"}>{group?.title}</Badge>
                     </TableCell>
                     <TableCell>{assigne?.name}</TableCell>
                     <TableCell>{dueDate?.toDateString()}</TableCell>

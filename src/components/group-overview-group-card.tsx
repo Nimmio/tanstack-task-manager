@@ -8,21 +8,28 @@ import {
 } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Progress } from "./ui/progress";
-import { group } from "./groups-overview";
 import { m } from "@/paraglide/messages";
+import { Group } from "@/generated/prisma/client";
+
+interface GroupOverviewGroupCardProps {
+  title: string;
+  description: string;
+  count: number;
+  percent: number;
+}
 
 const GroupOverviewGroupCard = ({
-  name,
+  title,
   description,
   count,
   percent,
-}: group) => {
+}: GroupOverviewGroupCardProps) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle>
           <div className="flex justify-between">
-            <span>{name}</span>
+            <span>{title}</span>
             <Badge variant={"outline"}>{count} Tasks</Badge>
           </div>
         </CardTitle>

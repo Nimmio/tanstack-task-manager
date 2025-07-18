@@ -35,10 +35,10 @@ const GroupsOverview = ({ groups }: GroupsOverviewProps) => {
             return (
               <GroupOverviewGroupCard
                 key={group.id}
-                name={group.title}
+                title={group.title}
                 description={group.description}
                 count={group.tasks.length}
-                percent={completionRate.toFixed()}
+                percent={+completionRate.toFixed()}
               />
             );
           })}

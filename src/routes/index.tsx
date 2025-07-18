@@ -3,8 +3,7 @@ import DashboardStats from "@/components/dashboard-stats";
 import GroupsOverview from "@/components/groups-overview";
 import PageWrap from "@/components/page-wrap";
 import RecentTasks from "@/components/recent-task";
-import { getDashboardData } from "@/lib/server/dashboard";
-import { getGroups, groupsQueryOptions } from "@/lib/server/groups";
+import { groupsQueryOptions } from "@/lib/server/groups";
 import {
   taskCountCompletedQueryOptions,
   tasksCountQueryOptions,

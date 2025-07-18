@@ -9,14 +9,16 @@ import {
 import { Badge } from "./ui/badge";
 import { Priority } from "@/generated/prisma/client";
 import { Status } from "@/generated/prisma/enums";
+import { getPriorityLabel } from "@/lib/priorities";
+import { getStatusLabel } from "@/lib/status";
 
 interface TaskCardProps {
   title: string;
   description?: string;
   group?: string;
   assignedTo?: string;
-  priority?: Priority;
-  status?: Status;
+  priority: Priority;
+  status: Status;
   dueDate?: Date;
 }
 
@@ -55,8 +57,9 @@ const TaskCard = ({
           </div>
           <div className="flex gap-4">
             {dueDate && <>{dueDate.toDateString()}</>}
+            <Badge>{getStatusLabel(status)}</Badge>
             <Badge variant={getPriorityBadgeVariant(priority)}>
-              {priority}
+              {getPriorityLabel(priority)}
             </Badge>
           </div>
         </div>

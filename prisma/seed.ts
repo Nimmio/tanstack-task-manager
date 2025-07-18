@@ -8,7 +8,7 @@ async function main() {
 
   // 1. Benutzer erstellen (15 Stück)
   const users: User[] = [];
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 50; i++) {
     const user = await prisma.user.create({
       data: {
         id: faker.string.uuid(),

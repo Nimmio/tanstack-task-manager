@@ -21,7 +21,7 @@ const DashboardStats = ({
   const completionRate = getCompletionRate({
     allTasksCount: totalTasksCount,
     completedTasksCount: completedtasksCount,
-  });
+  }).toFixed();
   return (
     <div className="grid grid-cols-4 gap-8">
       <DashboardStatsCard
@@ -46,7 +46,7 @@ const DashboardStats = ({
         title={m.left_few_llama_fetch()}
         Icon={FolderOpen}
         main={`${completionRate}%`}
-        sub={<Progress value={completionRate} />}
+        sub={<Progress value={+completionRate} />}
       />
     </div>
   );
