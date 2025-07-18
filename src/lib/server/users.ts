@@ -13,3 +13,15 @@ export const getUsersCount = createServerFn({
 }).handler(async () => {
   return await prisma.user.count();
 });
+
+export const userQueryOptions = () =>
+  queryOptions({
+    queryKey: ["user"],
+    queryFn: () => getUsers(),
+  });
+
+export const getUsers = createServerFn({
+  method: "GET",
+}).handler(async () => {
+  return await prisma.user.findMany();
+});

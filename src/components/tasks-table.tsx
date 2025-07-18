@@ -30,7 +30,7 @@ const TaskTable = ({ tasks }: TaskTableProps) => {
     <Card className="mt-4">
       <CardHeader>
         <CardTitle>Tasks</CardTitle>
-        <CardDescription>Found 20 Tasks</CardDescription>
+        <CardDescription>Found {tasks?.length} Tasks</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
